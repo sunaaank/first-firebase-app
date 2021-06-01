@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 
-const INITIAL_INPUT = {
+const INITIAL_SIGNUP_INPUT = {
   name: '',
   email: '',
   password: '',
 };
 
 export default function SignUp() {
-  const [loginInput, setLoginInput] = useState({
-    INITIAL_INPUT,
+  const [signUpInput, setSignUpInput] = useState({
+    INITIAL_SIGNUP_INPUT,
   });
 
   const handleChange = e => {
     const { id, value } = e.target;
-    setLoginInput({ ...loginInput, [id]: value });
+    setSignUpInput({ ...signUpInput, [id]: value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(loginInput);
+    console.log(signUpInput);
   };
 
   return (

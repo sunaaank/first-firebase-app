@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-const INITIAL_INPUT = {
+const INITIAL_LOGIN_INPUT = {
   name: '',
   password: '',
 };
 
 export default function SignIn() {
   const [loginInput, setLoginInput] = useState({
-    INITIAL_INPUT,
+    INITIAL_LOGIN_INPUT,
   });
 
   const handleChange = e => {
