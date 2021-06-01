@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 const INITIAL_INPUT = {
   name: '',
+  email: '',
   password: '',
 };
 
-export default function SignIn() {
+export default function SignUp() {
   const [loginInput, setLoginInput] = useState({
     INITIAL_INPUT,
   });
@@ -23,8 +24,11 @@ export default function SignIn() {
   return (
     <div className="container">
       <form onSubmit={e => handleSubmit(e)} className="white">
-        <h5 className="grey-text text-darken-3">Sign In</h5>
-
+        <h5 className="grey-text text-darken-3">Sign Up</h5>
+        <div className="input-field">
+          <label htmlFor="text">Name</label>
+          <input type="text" id="name" onChange={e => handleChange(e)} />
+        </div>
         <div className="input-field">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" onChange={e => handleChange(e)} />
@@ -38,7 +42,7 @@ export default function SignIn() {
           />
         </div>
         <div className="input-field">
-          <button className="btn pink lighten-1 z-depth-0">Login</button>
+          <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
         </div>
       </form>
     </div>
