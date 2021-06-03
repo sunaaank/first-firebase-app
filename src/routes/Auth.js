@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { authService } from '../fbase';
 
 const INITIAL_LOGIN_INPUT = {
   email: '',
@@ -9,6 +10,7 @@ const Auth = () => {
   const [loginInput, setLoginInput] = useState({
     INITIAL_LOGIN_INPUT,
   });
+  const [newAccout, setNewAccout] = useState(false);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -16,8 +18,25 @@ const Auth = () => {
     console.log(loginInput);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
+    const [email, password] = loginInput;
     e.preventDefault();
+    try {
+      let data;
+      if (newAccout) {
+        // create account
+        data = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+      } else {
+        // login
+        data = await authService.signInWithEmailAndPassword(email, password);
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -34,7 +53,11 @@ const Auth = () => {
           <input type="password" name="password" onChange={handleChange} />
         </div>
         <div className="input-field">
-          <button className="btn pink lighten-1 z-depth-0">Login</button>
+          <input
+            type="submit"
+            value={newAccout ? 'Create Account' : 'Login'}
+            className="btn pink lighten-1 z-depth-0"
+          />
         </div>
         <div>
           <button className="btn pink lighten-1 z-depth-0">
