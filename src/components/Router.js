@@ -8,7 +8,7 @@ import SignUp from './auth/SignUp';
 import CreateProject from './projects/CreateProject';
 import ProductList from './products/ProductList';
 import CartList from './products/CartList';
-// import Auth from './routes/Auth';
+import Auth from '../routes/Auth';
 import Home from '../routes/Home';
 
 const AppRouter = ({ isLoggedIn }) => {
@@ -20,14 +20,15 @@ const AppRouter = ({ isLoggedIn }) => {
           {isLoggedIn ? (
             <>
               <Route exact path="/">
-                <SignIn />
+                <Auth />
               </Route>
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
+              // <Route path="/signin" component={SignIn} />
+              // <Route path="/signup" component={SignUp} />
             </>
           ) : (
             <>
               <Route exact path="/">
+                <Auth />
                 <Home />
               </Route>
               <Route path="/dashboard" component={Dashboard} />

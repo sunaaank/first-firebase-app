@@ -5,15 +5,14 @@ const Home = () => {
   const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
   const getSweets = async () => {
-    const newSweets = await dbService
-      .collection('Sweets')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          console.log(`${doc.id} => ${doc.data()}`);
-        });
-      });
-    setSweets(newSweets);
+    const dbSweets = await dbService.collection('Sweets').get();
+    dbSweets.forEach(document => {
+      const sweetObject = {
+        ...document.data(),
+        id: document.id,
+      };
+      setSweets(prev => [sweetObject, ...prev]);
+    });
   };
 
   useEffect(() => {
@@ -63,6 +62,13 @@ const Home = () => {
           className="btn pink lighten-1 z-depth-0"
         />
       </form>
+      <div>
+        {sweets.map(sweet => (
+          <div key={sweet.id}>
+            <h4>{sweet.content}</h4>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
