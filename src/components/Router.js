@@ -8,7 +8,7 @@ import SignUp from './auth/SignUp';
 import CreateProject from './projects/CreateProject';
 import ProductList from './products/ProductList';
 import CartList from './products/CartList';
-// import Auth from '../routes/Auth';
+// import Auth from './routes/Auth';
 import Home from '../routes/Home';
 
 const AppRouter = ({ isLoggedIn }) => {
