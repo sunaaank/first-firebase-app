@@ -7,10 +7,8 @@ const INITIAL_LOGIN_INPUT = {
 };
 
 const Auth = () => {
-  const [loginInput, setLoginInput] = useState({
-    INITIAL_LOGIN_INPUT,
-  });
-  const [newAccout, setNewAccout] = useState(false);
+  const [loginInput, setLoginInput] = useState(INITIAL_LOGIN_INPUT);
+  const [newAccout, setNewAccout] = useState(true);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -19,7 +17,7 @@ const Auth = () => {
   };
 
   const handleSubmit = async e => {
-    const [email, password] = loginInput;
+    const { email, password } = loginInput;
     e.preventDefault();
     try {
       let data;
