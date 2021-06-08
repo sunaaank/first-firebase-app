@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './layout/Navbar';
 import Dashboard from './dashboard/Dashboard';
 import ProjectDetails from './projects/ProjectDetails';
@@ -28,6 +28,7 @@ const AppRouter = ({ isLoggedIn }) => {
               <Route path="/create" component={CreateProject} />
               <Route exact path="/product" component={ProductList} />
               <Route exact path="/cart" component={CartList} />
+              <Redirect from="*" to="/" />
             </>
           ) : (
             <>
@@ -36,6 +37,7 @@ const AppRouter = ({ isLoggedIn }) => {
               </Route>
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
+              <Redirect from="*" to="/" />
             </>
           )}
         </Switch>
