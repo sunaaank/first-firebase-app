@@ -4,19 +4,28 @@ import { dbService } from '../fbase';
 const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
-  const getSweets = async () => {
-    const dbSweets = await dbService.collection('Sweets').get();
-    dbSweets.forEach(document => {
-      const sweetObject = {
-        ...document.data(),
-        id: document.id,
-      };
-      setSweets(prev => [sweetObject, ...prev]);
-    });
-  };
+  // not realtime
+  // const getSweets = async () => {
+  //   const dbSweets = await dbService.collection('Sweets').get();
+  //   dbSweets.forEach(document => {
+  //     const sweetObject = {
+  //       ...document.data(),
+  //       id: document.id,
+  //     };
+  //     setSweets(prev => [sweetObject, ...prev]);
+  //   });
+  // };
 
   useEffect(() => {
-    getSweets();
+    // getSweets();
+    // realtime
+    dbService.collection('Sweets').onSnapshot(snapshot => {
+      const sweetArray = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setSweets(sweetArray);
+    });
   }, []);
 
   const onSubmit = async e => {

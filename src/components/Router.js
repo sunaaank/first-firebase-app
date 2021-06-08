@@ -20,7 +20,6 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
           {isLoggedIn ? (
             <>
               <Route exact path="/">
-                <Auth />
                 <Home userObj={userObj} />
               </Route>
               <Route path="/dashboard" component={Dashboard} />

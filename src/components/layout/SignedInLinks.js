@@ -1,10 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { authService } from 'fbase';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CartNoti from '../cart/CartNoti';
 
 const SignedInLinks = () => {
   const cartItems = useSelector(store => store.cartReducer);
+
+  const history = useHistory();
+  const onLogOutClick = () => {
+    authService.signOut();
+    history.push('/');
+  };
+
   return (
     <div>
       <ul className="right">
@@ -15,7 +23,9 @@ const SignedInLinks = () => {
           <NavLink to="/product">Shop</NavLink>
         </li>
         <li>
-          <NavLink to="/">Log Out</NavLink>
+          <NavLink to="/" onClick={onLogOutClick}>
+            Log Out
+          </NavLink>
         </li>
         <li>
           <NavLink to="/cart">
