@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { authService } from '../fbase';
+import { ThemeProvider } from 'styled-components';
+import { authService, firebaseInstance } from '../fbase';
 
 const INITIAL_LOGIN_INPUT = {
   email: '',
@@ -40,6 +41,18 @@ const Auth = () => {
 
   const toggleAccount = () => setNewAccount(prev => !prev);
 
+  const onSocialClick = async event => {
+    const { name } = event.target;
+    let provider;
+    if (name === 'google') {
+      provider = new firebaseInstance.auth.GoogleAuthProvider();
+    } else if (name === 'github') {
+      provider = new firebaseInstance.auth.GithubAuthProvider();
+    }
+    const data = await authService.signInWithPopup(provider);
+    console.log(data);
+  };
+
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="white">
@@ -65,10 +78,18 @@ const Auth = () => {
           {newAccount ? 'Login' : 'Create Account'}
         </span>
         <div>
-          <button className="btn pink lighten-1 z-depth-0">
+          <button
+            onClick={onSocialClick}
+            name="google"
+            className="btn pink lighten-1 z-depth-0"
+          >
             Continue with Google
           </button>
-          <button className="btn pink lighten-1 z-depth-0">
+          <button
+            onClick={onSocialClick}
+            name="github"
+            className="btn pink lighten-1 z-depth-0"
+          >
             Continue with Github
           </button>
         </div>
