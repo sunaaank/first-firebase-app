@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { dbService } from '../fbase';
+import { v4 as uuidv4 } from 'uuid';
+import { dbService, storageService } from '../fbase';
 import Sweet from '../components/Sweet.js';
 
 const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
+  const [attachment, setAttachment] = useState();
+
   // not realtime
   // const getSweets = async () => {
   //   const dbSweets = await dbService.collection('Sweets').get();
@@ -30,9 +33,10 @@ const Home = ({ userObj }) => {
   }, []);
 
   const onSubmit = async e => {
-    console.log('작동해라');
     e.preventDefault();
-    await dbService
+    const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+    const response = await fileRef.putString(attachment, 'data_url');
+    /* await dbService
       .collection('Sweets')
       .add({
         content: sweet,
@@ -45,7 +49,7 @@ const Home = ({ userObj }) => {
       .catch(error => {
         console.error('Error adding document: ', error);
       });
-    setSweet('');
+    setSweet(''); */
   };
 
   const onChange = event => {
@@ -53,6 +57,24 @@ const Home = ({ userObj }) => {
       target: { value },
     } = event;
     setSweet(value);
+  };
+
+  const onFileChange = e => {
+    const { files } = e.target;
+    const theFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = finishedEvent => {
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      console.log(finishedEvent);
+      setAttachment(result);
+    };
+    reader.readAsDataURL(theFile);
+  };
+
+  const onClearPhotoClick = () => {
+    setAttachment(null);
   };
 
   return (
@@ -67,11 +89,24 @@ const Home = ({ userObj }) => {
             maxLength={120}
           />
         </div>
+        <input type="file" accept="image/*" onChange={onFileChange} />
         <input
           type="submit"
           value="Sweet"
           className="btn pink lighten-1 z-depth-0"
         />
+        {attachment && (
+          <>
+            <img
+              alt="업로드이미지"
+              src={attachment}
+              width="50px"
+              height="50px"
+            />
+
+            <button onClick={onClearPhotoClick}>Clear</button>
+          </>
+        )}
       </form>
       <div>
         {sweets.map(sweet => (
