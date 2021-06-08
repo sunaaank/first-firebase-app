@@ -8,7 +8,8 @@ const INITIAL_LOGIN_INPUT = {
 
 const Auth = () => {
   const [loginInput, setLoginInput] = useState(INITIAL_LOGIN_INPUT);
-  const [newAccout, setNewAccout] = useState(true);
+  const [newAccount, setNewAccount] = useState(true);
+  const [error, setError] = useState('');
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -21,7 +22,7 @@ const Auth = () => {
     e.preventDefault();
     try {
       let data;
-      if (newAccout) {
+      if (newAccount) {
         // create account
         data = await authService.createUserWithEmailAndPassword(
           email,
@@ -33,9 +34,11 @@ const Auth = () => {
       }
       console.log(data);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     }
   };
+
+  const toggleAccount = () => setNewAccount(prev => !prev);
 
   return (
     <div className="container">
@@ -53,10 +56,14 @@ const Auth = () => {
         <div className="input-field">
           <input
             type="submit"
-            value={newAccout ? 'Create Account' : 'Login'}
+            value={newAccount ? 'Create Account' : 'Login'}
             className="btn pink lighten-1 z-depth-0"
           />
         </div>
+        <p>{error}</p>
+        <span onClick={toggleAccount}>
+          {newAccount ? 'Login' : 'Create Account'}
+        </span>
         <div>
           <button className="btn pink lighten-1 z-depth-0">
             Continue with Google

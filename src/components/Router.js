@@ -21,14 +21,6 @@ const AppRouter = ({ isLoggedIn }) => {
             <>
               <Route exact path="/">
                 <Auth />
-              </Route>
-              // <Route path="/signin" component={SignIn} />
-              // <Route path="/signup" component={SignUp} />
-            </>
-          ) : (
-            <>
-              <Route exact path="/">
-                <Auth />
                 <Home />
               </Route>
               <Route path="/dashboard" component={Dashboard} />
@@ -36,6 +28,14 @@ const AppRouter = ({ isLoggedIn }) => {
               <Route path="/create" component={CreateProject} />
               <Route exact path="/product" component={ProductList} />
               <Route exact path="/cart" component={CartList} />
+            </>
+          ) : (
+            <>
+              <Route exact path="/">
+                <Auth />
+              </Route>
+              <Route path="/signin" component={SignIn} />
+              <Route path="/signup" component={SignUp} />
             </>
           )}
         </Switch>
