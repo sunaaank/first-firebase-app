@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { dbService } from '../fbase';
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
   const getSweets = async () => {
@@ -27,6 +27,7 @@ const Home = () => {
       .add({
         content: sweet,
         createdAt: Date.now(),
+        creatorId: userObj.uid,
       })
       .then(docRef => {
         console.log('Document written with ID: ', docRef.id);

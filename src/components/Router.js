@@ -11,7 +11,7 @@ import CartList from './products/CartList';
 import Auth from '../routes/Auth';
 import Home from '../routes/Home';
 
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
     <BrowserRouter>
       <div className="App">
@@ -21,7 +21,7 @@ const AppRouter = ({ isLoggedIn }) => {
             <>
               <Route exact path="/">
                 <Auth />
-                <Home />
+                <Home userObj={userObj} />
               </Route>
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/project/:id" component={ProjectDetails} />
