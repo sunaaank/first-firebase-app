@@ -74,9 +74,12 @@ const Auth = () => {
           />
         </div>
         <p>{error}</p>
-        <span onClick={toggleAccount}>
+        <button
+          onClick={toggleAccount}
+          className="btn black lighten-1 z-depth-0"
+        >
           {newAccount ? 'Login' : 'Create Account'}
-        </span>
+        </button>
         <div>
           <button
             onClick={onSocialClick}

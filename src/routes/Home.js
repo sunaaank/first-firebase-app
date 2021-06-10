@@ -6,7 +6,7 @@ import Sweet from '../components/Sweet.js';
 const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState(null);
 
   // not realtime
   // const getSweets = async () => {
@@ -34,22 +34,36 @@ const Home = ({ userObj }) => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-    const response = await fileRef.putString(attachment, 'data_url');
-    /* await dbService
+    let attachmentUrl = '';
+    if (!!attachment) {
+      const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+      const response = await fileRef.putString(attachment, 'data_url');
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
+    const sweetObj = {
+      content: sweet,
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      attachmentUrl,
+    };
+
+    await dbService
       .collection('Sweets')
-      .add({
-        content: sweet,
-        createdAt: Date.now(),
-        creatorId: userObj.uid,
-      })
-      .then(docRef => {
-        console.log('Document written with ID: ', docRef.id);
-      })
+      .add(sweetObj)
       .catch(error => {
         console.error('Error adding document: ', error);
       });
-    setSweet(''); */
+    setSweet('');
+    setAttachment(null);
+  };
+
+  const hasContent = () => {
+    const isBlankStarting = /^\s+/g;
+    if (!sweet || !!isBlankStarting.test(sweet)) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const onChange = event => {
@@ -67,7 +81,6 @@ const Home = ({ userObj }) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      console.log(finishedEvent);
       setAttachment(result);
     };
     reader.readAsDataURL(theFile);
@@ -93,6 +106,7 @@ const Home = ({ userObj }) => {
         <input
           type="submit"
           value="Sweet"
+          disabled={!hasContent()}
           className="btn pink lighten-1 z-depth-0"
         />
         {attachment && (

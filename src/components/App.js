@@ -10,10 +10,12 @@ function App() {
     authService.onAuthStateChanged(user => {
       if (user) {
         setUserObj(user);
+        console.log('app>useEffect>user', userObj);
       }
       setInit(true);
     });
   }, []);
+
   return (
     <>
       {init ? (
