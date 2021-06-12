@@ -14,7 +14,7 @@ import Profile from '../routes/Profile';
 
 const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className="App">
         <Navbar />
         <Switch>

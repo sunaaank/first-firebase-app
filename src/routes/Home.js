@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { dbService } from '../fbase';
 import Sweet from '../components/Sweet';
-import Form from '../components/message/Form';
+import MessageForm from '../components/message/MessageForm';
 
 const Home = ({ userObj }) => {
   const [sweets, setSweets] = useState([]);
@@ -18,7 +18,7 @@ const Home = ({ userObj }) => {
 
   return (
     <div className="container">
-      <Form userObj={userObj} />
+      <MessageForm userObj={userObj} />
       <div>
         {sweets.map(sweet => (
           <Sweet

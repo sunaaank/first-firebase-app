@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { dbService, storageService } from '../../fbase';
 
-const Form = ({ userObj }) => {
+const MessageForm = ({ userObj }) => {
   const [sweet, setSweet] = useState('');
   const [attachment, setAttachment] = useState('');
 
@@ -92,4 +92,4 @@ const Form = ({ userObj }) => {
   );
 };
 
-export default Form;
+export default MessageForm;
