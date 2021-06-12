@@ -1,28 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { dbService, storageService } from '../fbase';
-import Sweet from '../components/Sweet.js';
+import { dbService } from '../fbase';
+import Sweet from '../components/Sweet';
+import Form from '../components/message/Form';
 
 const Home = ({ userObj }) => {
-  const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
-  const [attachment, setAttachment] = useState('');
-
-  // not realtime
-  // const getSweets = async () => {
-  //   const dbSweets = await dbService.collection('Sweets').get();
-  //   dbSweets.forEach(document => {
-  //     const sweetObject = {
-  //       ...document.data(),
-  //       id: document.id,
-  //     };
-  //     setSweets(prev => [sweetObject, ...prev]);
-  //   });
-  // };
 
   useEffect(() => {
-    // getSweets();
-    // realtime
     dbService.collection('Sweets').onSnapshot(snapshot => {
       const sweetArray = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -32,96 +16,9 @@ const Home = ({ userObj }) => {
     });
   }, []);
 
-  const onSubmit = async e => {
-    e.preventDefault();
-    let attachmentUrl = '';
-    if (!!attachment) {
-      const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-      const response = await fileRef.putString(attachment, 'data_url');
-      attachmentUrl = await response.ref.getDownloadURL();
-    }
-    const sweetObj = {
-      content: sweet,
-      createdAt: Date.now(),
-      creatorId: userObj.uid,
-      attachmentUrl,
-    };
-
-    await dbService
-      .collection('Sweets')
-      .add(sweetObj)
-      .catch(error => {
-        console.error('Error adding document: ', error);
-      });
-    setSweet('');
-    setAttachment(null);
-  };
-
-  const hasContent = () => {
-    const isBlankStarting = /^\s+/g;
-    if (!sweet || !!isBlankStarting.test(sweet)) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const onChange = event => {
-    const {
-      target: { value },
-    } = event;
-    setSweet(value);
-  };
-
-  const onFileChange = e => {
-    const { files } = e.target;
-    const theFile = files[0];
-    const reader = new FileReader();
-    reader.onloadend = finishedEvent => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setAttachment(result);
-    };
-    reader.readAsDataURL(theFile);
-  };
-
-  const onClearPhotoClick = () => {
-    setAttachment(null);
-  };
-
   return (
     <div className="container">
-      <form className="white" onSubmit={onSubmit}>
-        <div className="input-field">
-          <input
-            value={sweet}
-            onChange={onChange}
-            type="text"
-            placeholder="What's on your mind?"
-            maxLength={120}
-          />
-        </div>
-        <input type="file" accept="image/*" onChange={onFileChange} />
-        <input
-          type="submit"
-          value="Sweet"
-          disabled={!hasContent()}
-          className="btn pink lighten-1 z-depth-0"
-        />
-        {attachment && (
-          <>
-            <img
-              alt="업로드이미지"
-              src={attachment}
-              width="50px"
-              height="50px"
-            />
-
-            <button onClick={onClearPhotoClick}>Clear</button>
-          </>
-        )}
-      </form>
+      <Form userObj={userObj} />
       <div>
         {sweets.map(sweet => (
           <Sweet
