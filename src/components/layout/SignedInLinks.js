@@ -33,7 +33,7 @@ const SignedInLinks = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="btn btn-floating pink lighten-1">
+          <NavLink to="/profile" className="btn btn-floating pink lighten-1">
             MY
           </NavLink>
         </li>

@@ -12,7 +12,7 @@ import Auth from '../routes/Auth';
 import Home from '../routes/Home';
 import Profile from '../routes/Profile';
 
-const AppRouter = ({ isLoggedIn, userObj }) => {
+const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
   return (
     <BrowserRouter>
       <div className="App">
@@ -24,7 +24,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
                 <Home userObj={userObj} />
               </Route>
               <Route exact path="/profile">
-                <Profile userObj={userObj} />
+                <Profile userObj={userObj} refreshUser={refreshUser} />
               </Route>
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/project/:id" component={ProjectDetails} />

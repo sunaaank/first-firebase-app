@@ -1,14 +1,7 @@
 {
-  "extends": [
-    "react-app",
-    "prettier",
-    "react-hooks",
-    "plugin:jsx-a11y/recommended"
-  ],
+  "extends": ["react-app", "prettier", "plugin:jsx-a11y/recommended"],
   "plugins": ["prettier", "jsx-a11y"],
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
 }
