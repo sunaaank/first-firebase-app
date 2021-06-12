@@ -6,7 +6,7 @@ import Sweet from '../components/Sweet.js';
 const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState('');
   const [sweets, setSweets] = useState([]);
-  const [attachment, setAttachment] = useState(null);
+  const [attachment, setAttachment] = useState('');
 
   // not realtime
   // const getSweets = async () => {

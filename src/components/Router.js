@@ -10,6 +10,7 @@ import ProductList from './products/ProductList';
 import CartList from './products/CartList';
 import Auth from '../routes/Auth';
 import Home from '../routes/Home';
+import Profile from '../routes/Profile';
 
 const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
@@ -21,6 +22,9 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
             <>
               <Route exact path="/">
                 <Home userObj={userObj} />
+              </Route>
+              <Route exact path="/profile">
+                <Profile userObj={userObj} />
               </Route>
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/project/:id" component={ProjectDetails} />
