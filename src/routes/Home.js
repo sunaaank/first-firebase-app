@@ -6,7 +6,6 @@ import Pagination from '../components/Pagination';
 
 const Home = ({ userObj }) => {
   const [sweets, setSweets] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [sweetsPerPage, setSweetsPerPage] = useState(10);
 

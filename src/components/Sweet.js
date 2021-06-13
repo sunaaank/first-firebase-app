@@ -28,7 +28,7 @@ const Sweet = ({ sweetObj, isOwner }) => {
   };
 
   return (
-    <div>
+    <div className="card-panel grey lighten-5 z-depth-1">
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
@@ -39,28 +39,33 @@ const Sweet = ({ sweetObj, isOwner }) => {
               required
               onChange={onChangeMessage}
             />
+            <button onClick={toggleEditing}>Cancel</button>
             <input type="submit" value="Update Message" />
           </form>
-          <button onClick={toggleEditing}>Cancel</button>
         </>
       ) : (
-        <>
-          <h4>{sweetObj.content}</h4>
-          {sweetObj.attachmentUrl && (
-            <img
-              alt="이미지"
-              src={sweetObj.attachmentUrl}
-              width="50px"
-              height="50px"
-            />
-          )}
+        <div className="row valign-wrapper">
+          <div className="col s10">
+            <h4>{sweetObj.content}</h4>
+          </div>
+          <div className="col s2">
+            {sweetObj.attachmentUrl && (
+              <img
+                alt="이미지"
+                src={sweetObj.attachmentUrl}
+                className="circle"
+                width="100px"
+                height="100px"
+              />
+            )}
+          </div>
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Sweet</button>
               <button onClick={toggleEditing}>Edit Sweet</button>
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );
