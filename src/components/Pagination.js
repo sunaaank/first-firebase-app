@@ -23,7 +23,7 @@ const Pagination = ({ sweetsPerPage, totalPosts, paginate, currentPage }) => {
         </a>
       </li>
       {pageNumbers.map(pageNumber => (
-        <li>
+        <li key={pageNumber}>
           <button
             onClick={() => onPageClick(pageNumber)}
             className={`waves-effect transparent ${
