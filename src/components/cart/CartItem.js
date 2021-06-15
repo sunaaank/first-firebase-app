@@ -107,5 +107,5 @@ const DeleteCircle = styled.div`
 const DeleteIcon = styled.div`
   width: 15px;
   height: 20px;
-  background-image: url('/images/deleteIcon.png');
+  background-image: url('images/deleteIcon.png');
 `;

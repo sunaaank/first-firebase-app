@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ProductCard from '../cart/ProductCard';
+import UserList from './UserList';
 
 function ProductList() {
   return (
     <ListContainer>
       <Title>상품 목록</Title>
       <Line />
+      <UserList />
       <CardContainer>
         {CART_ITEM.map((e, i) => (
           <ProductCard key={i} item={e} />
