@@ -46,7 +46,7 @@ const Sweet = ({ sweetObj, isOwner }) => {
       ) : (
         <div className="row valign-wrapper">
           <div className="col s10">
-            <h4>{sweetObj.content}</h4>
+            <h5>{sweetObj.content}</h5>
           </div>
           <div className="col s2">
             {sweetObj.attachmentUrl && (
