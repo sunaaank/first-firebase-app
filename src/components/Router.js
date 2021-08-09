@@ -11,6 +11,8 @@ import CartList from './products/CartList';
 import Auth from '../routes/Auth';
 import Home from '../routes/Home';
 import Profile from '../routes/Profile';
+import TimelineMain from './timeline/TimelineMain';
+import FriendMain from './friend/FriendMain';
 
 const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
   return (
@@ -29,6 +31,10 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/project/:id" component={ProjectDetails} />
               <Route path="/create" component={CreateProject} />
+              <Route path="/list">
+                <TimelineMain />
+                <FriendMain />
+              </Route>
               <Route exact path="/product" component={ProductList} />
               <Route exact path="/cart" component={CartList} />
               <Redirect from="*" to="/" />

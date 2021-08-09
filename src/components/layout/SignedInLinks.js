@@ -20,6 +20,9 @@ const SignedInLinks = () => {
           <NavLink to="/create">New Project</NavLink>
         </li>
         <li>
+          <NavLink to="/list">List</NavLink>
+        </li>
+        <li>
           <NavLink to="/product">Shop</NavLink>
         </li>
         <li>
