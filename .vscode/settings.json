@@ -1,8 +1,10 @@
 {
-  "indentRainbow.includedLanguages": [
-  
-  ],
+  "indentRainbow.includedLanguages": [],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#0061cf",
+    "titleBar.inactiveBackground": "#0061cf"
   }
 }

@@ -32,8 +32,10 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
               <Route path="/project/:id" component={ProjectDetails} />
               <Route path="/create" component={CreateProject} />
               <Route path="/list">
-                <TimelineMain />
-                <FriendMain />
+                <div>
+                  <TimelineMain />
+                  <FriendMain />
+                </div>
               </Route>
               <Route exact path="/product" component={ProductList} />
               <Route exact path="/cart" component={CartList} />

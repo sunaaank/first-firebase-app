@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import firebase from './fbase';
-import store from './store/store';
+import store from './common/store';
 import { Provider } from 'react-redux';
 
 ReactDOM.render(
